@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "Geist";
+  src: url('assets/Geist/GeistVariableVF.woff2');
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  font-family: "Geist", sans-serif;
+  box-sizing: border-box;
+}
+
+h1 {
+  font-weight: 600;
+}
+
+h2 {
+  font-weight: 400;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
+}
+

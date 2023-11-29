@@ -1,0 +1,11 @@
+<div class="home-container">
+  <h1>Web Dev Assistant</h1>
+  <h2>A helpful assistant to answer web dev questions</h2>
+  <form (submit)="
+  $event.preventDefault();
+  sendMessage();
+">
+    <input type="text" name="question" [formControl]="message" placeholder="Ask a question">
+    <button type="submit" >Ask</button>
+  </form>
+</div>

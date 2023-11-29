@@ -1,0 +1,16 @@
+<div class="chat-page">
+<h1>Chat List</h1>
+  <div class="links">
+    @for (chat of chatData; track chat.id) {
+    <div class="list-item">
+      <a href="/chat/{{chat.id}}">{{chat.title}}</a>
+      <button (click)="editChat(chat)">edit</button>
+      <button (click)="deleteChat(chat.id)">X</button>
+    </div>
+    }
+  </div>
+  <a href="/" class="new-chat-btn">+</a>
+</div>
+@if (this.showEditModal) {
+  <edit-modal [chat]="this.currentChat" (closeModalEvent)="this.showEditModal=$event"/>
+}

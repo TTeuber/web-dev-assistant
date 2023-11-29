@@ -1,0 +1,33 @@
+.message-container {
+  padding: 0.5rem;
+  width: fit-content;
+  margin-block: 1rem;
+  border-radius: 1rem;
+  overflow: scroll;
+}
+
+p {
+  margin: 0;
+  color: white;
+}
+
+@mixin message {
+  max-width: 50%;
+}
+
+.user {
+  @include message;
+  background-color: blue;
+  margin-right: 1rem;
+  margin-left: auto;
+  border-bottom-right-radius: 0;
+}
+
+.assistant {
+  @include message;
+  background-color: green;
+  margin-left: 1rem;
+  margin-right: auto;
+  border-bottom-left-radius: 0;
+}
+

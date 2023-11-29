@@ -1,0 +1,19 @@
+<h1>Chat</h1>
+@if (this.loading === true) {
+  <p>Loading...</p>
+}
+<div class="chat-container">
+  <div class="message-container">
+    <message [messages]="data" />
+  </div>
+  <form (submit)="
+  $event.preventDefault();
+  id = uuid();
+  data.push({id, role: 'user', content: text.value ?? ''});
+  sendMessage(id);
+  text.setValue('');
+">
+    <input type="text" [formControl]="text" placeholder="Type your message here...">
+    <button type="submit" [disabled]="text.value === ''">Send</button>
+  </form>
+</div>
