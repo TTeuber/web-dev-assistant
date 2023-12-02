@@ -20,7 +20,7 @@ export class HomeComponent {
   constructor(private router: Router) {}
 
   async sendMessage() {
-    console.log(this.message!.value)
+    sessionStorage.setItem('message', JSON.stringify(this.message!.value));
     const id = uuid();
     await fetch('http://localhost:5001/Chat', {
       method: 'POST',
@@ -30,7 +30,6 @@ export class HomeComponent {
       body: JSON.stringify({chatId: id, role: 'user', content: this.message!.value})
     }).then(() => {
       this.router.navigate(['/chat', id]);
-      // TODO: get message from assistant
     })
   }
 }

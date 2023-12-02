@@ -40,7 +40,7 @@ namespace Dotnet.Controllers
         public async Task<ActionResult<Chat>> PostChat([FromBody]PostRq message)
         {
             _context.Chat.Add(new Chat{ Id = message.ChatId, Title = "New Chat" });
-            _context.Message.Add(new Message{ Id = Guid.NewGuid(), ChatId = message.ChatId, Content = message.Content, Role = "user" });
+            // _context.Message.Add(new Message{ Id = Guid.NewGuid(), ChatId = message.ChatId, Content = message.Content, Role = "user" });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetMessages", new { id = message.ChatId }, message);

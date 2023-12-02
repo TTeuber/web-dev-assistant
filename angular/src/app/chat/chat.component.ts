@@ -13,7 +13,7 @@ import { ActivatedRoute } from "@angular/router";
   styleUrl: './chat.component.scss',
 })
 export class ChatComponent implements OnInit {
-  data: Data[] = [{ id: uuid(), content: 'test', role: 'user' }];
+  data: Data[] = [];
   text = new FormControl('');
   uuid = uuid;
   id: string;
@@ -23,16 +23,22 @@ export class ChatComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get("id")!;
   }
   ngOnInit() {
-    fetch(`http://localhost:5001/Chat/${this.id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        this.data = data as Data[];
-        console.log(data);
-      });
+    // Check if this is the first message
+    if (sessionStorage.getItem('message') !== null) {
+      const message = JSON.parse(sessionStorage.getItem('message')!);
+      const id = uuid();
+      this.data.push({ id, content: message, role: 'user' } as Data);
+      sessionStorage.removeItem('message');
+      this.sendMessage(id);
 
-    // if (this.data.length === 1) {
-    //   this.sendMessage(this.data[0].id);
-    // }
+    }
+    else {
+      fetch(`http://localhost:5001/Chat/${this.id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          this.data.push(...data);
+        });
+    }
   }
 
   sendMessage(id: string) {
@@ -42,7 +48,7 @@ export class ChatComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({id, chatId: this.route.snapshot.paramMap.get("id"), content: this.text!.value})
+      body: JSON.stringify({id, chatId: this.route.snapshot.paramMap.get("id"), content: this.data[this.data.length - 1].content})
     }).then(r => r.json()).then(d => {
       console.log("data: " + d);
       this.data.push(d as Data);

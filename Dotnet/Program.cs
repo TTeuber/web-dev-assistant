@@ -29,7 +29,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.UseCors(builder => builder
+app.UseCors(b => b
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .AllowAnyHeader());
