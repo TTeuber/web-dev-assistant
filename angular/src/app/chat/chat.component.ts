@@ -60,5 +60,5 @@ export class ChatComponent implements OnInit {
 type Data = {
   id: string;
   content: string;
-  role: string;
+  role: "assistant" | "user";
 };

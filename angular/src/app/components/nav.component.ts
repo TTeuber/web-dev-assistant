@@ -8,7 +8,6 @@ import { RouterLink } from '@angular/router';
     <nav>
       <a routerLink="/">Home</a>
       <a routerLink="/chat">Chat</a>
-      <a routerLink="/test">Test</a>
     </nav>
   `,
   imports: [RouterLink],

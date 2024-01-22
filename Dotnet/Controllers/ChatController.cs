@@ -40,7 +40,6 @@ namespace Dotnet.Controllers
         public async Task<ActionResult<Chat>> PostChat([FromBody]PostRq message)
         {
             _context.Chat.Add(new Chat{ Id = message.ChatId, Title = "New Chat" });
-            // _context.Message.Add(new Message{ Id = Guid.NewGuid(), ChatId = message.ChatId, Content = message.Content, Role = "user" });
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetMessages", new { id = message.ChatId }, message);
@@ -90,7 +89,7 @@ namespace Dotnet.Controllers
             await _context.SaveChangesAsync();
 
             var messages = await _context.Message.Where(m => m.ChatId == message.ChatId).ToListAsync();
-            var chatMessages = new List<ChatMessage>();
+            var chatMessages = new List<ChatMessage> { new ChatMessage(ChatMessageRole.System, "Only answer messages about web development. Politely decline questions about other topics") };
             messages.ForEach(m => chatMessages.Add(new ChatMessage(ChatMessageRole.FromString(m.Role), m.Content )));
 
             var response = await _api.Chat.CreateChatCompletionAsync(new ChatRequest()
@@ -109,7 +108,6 @@ namespace Dotnet.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new Message(){Role = "assistant", Content = result.Content, ChatId = message.ChatId, Id = Guid.NewGuid() });
-            // return CreatedAtAction("GetMessages", new { id = message.ChatId }, message);
         }
 
         [HttpPut]

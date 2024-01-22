@@ -19,6 +19,6 @@ export class MessageComponent {
 
 type Messages = {
   id: string;
-  role: string;
+  role: "user" | "assistant";
   content: string;
 };
